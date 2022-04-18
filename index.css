@@ -1,0 +1,172 @@
+header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 46px;
+    z-index: 100;
+}
+
+body {
+    margin: 0;
+    background-color: #e6ecf0;
+}
+
+.navbar {
+    position: relative;
+}
+
+.navbar-expand {
+    padding-right: 5rem;
+    padding-left: 8rem;
+}
+
+#logo {
+    width: 24px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+}
+
+.tweetButton {
+    background-color: #4AB3F4;
+    color: white;
+    font-weight: bold;
+    right: 0;
+    border-radius: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid #4AB3F4;
+    max-width: 100px;
+}
+
+.nav-link {
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    color: #4AB3F4 !important;
+    border-bottom: 2px solid #4AB3F4;
+}
+
+#container {
+    max-width: 1190px;
+    margin: 56px auto;
+    padding: 15px;
+}
+
+#leftColumn {
+    max-width: 290px;
+    display: flex;
+    flex-direction: column;
+    max-height: 250px;
+    margin-right: 15px;
+}
+
+.coverPhotoContainer {
+    width: 100%;
+    background-color: black;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#coverPhoto {
+    width: 200px; 
+    margin-right: 45px;
+    margin-left: 45px;
+}
+
+#mainProfile {
+    z-index: 3;
+    max-height: 80px;
+    margin-top: -20px;
+}
+
+#profilePicture {
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    border: 2px solid white;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+#profileInformation {
+    margin-top: 15px;
+}
+
+.profileName {
+    margin-bottom: -5px;
+    margin-top: 10px;
+}
+
+#profileStatistics {
+    width: inherit;
+    justify-content: space-evenly;
+    font-size: medium;
+    padding-top: 10px;
+}
+
+.statisticsTitle {
+    color: #66767f;
+    font-weight: bold;
+}
+
+.statisticsNumber {
+    color: #60bcf5;
+    font-weight: bold;
+}
+
+.post {
+    border-bottom: 1px solid #e6ecf0;
+    min-height: 51px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+}
+
+.postProfilePicture {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+}
+
+.postContent {
+    margin-left: 10px;
+}
+
+.postProfileInformation p {
+    margin-bottom: 0px;
+}
+
+.postUsername {
+    color: gray;
+    margin-left: 5px;
+}
+
+#rightColumn {
+    max-width: 290px;
+    padding: 15px;
+    margin-left: 15px;
+    max-height: 270px;
+}
+
+.suggestions {
+    border-bottom: 1px solid #e6ecf0;
+    min-height: 45px;
+    padding: 10px 10px 20px 10px;
+    width: 290px;
+} 
+
+.followButton {
+    border-radius: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #4AB3F4;
+    border: 1px solid #4AB3F4;
+    max-width: 100px;
+    background-color: #f8f9fA;
+}
