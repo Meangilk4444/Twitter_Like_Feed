@@ -21,8 +21,7 @@ body {
     padding-left: 8rem;
 }
 
-#logo {
-    width: 24px;
+.form-outline {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
