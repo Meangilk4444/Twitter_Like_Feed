@@ -1,4 +1,5 @@
 var tweets = [];
+let tweetIDList = [];
 
 class Tweet {
     constructor(text, id, created_at) {
@@ -9,6 +10,8 @@ class Tweet {
 }
 
 window.addEventListener('load', (event) => {
+    console.log("Loaded");
+    getTweets();
     setInterval(getTweets, 5000);
 })
 
@@ -19,24 +22,32 @@ function getTweets() {
         for (let i = 0; Object.keys(data.statuses).length; i++) {
             if (data.statuses[i] != null && data.statuses[i].text != null && data.statuses[i].id != null && data.statuses[i].created_at) {
                 let tweet = new Tweet(data.statuses[i].text, data.statuses[i].id, data.statuses[i].created_at);
-                tweets.push(tweet);
 
-                if (tweets.length == 10) {
-                    break;
+                if (!tweetIDList.includes(tweet.id)) {
+                    tweets.push(tweet);
+                    tweetIDList.push(tweet.id);
                 }
-                //console.log(tweets[i].id);
+            }
+
+            if (i == 10) {
+                break;
             }
         }
+
+        updateFeed();
+    }).catch(function(err) {
+        console.warn("There was an error fetching the tweets.", err);
+    });
+}
+
+function updateFeed() {
+    console.log("constructing feed");
     var tweetContainer = document.getElementById('tweet-container'); 
     const tweetList = document.createElement("ul");
 
     if(tweetContainer != null){
         tweetContainer.appendChild(tweetList);
-        console.log("appended");
     }
-        //console.log(tweets);
-    removeDuplicates();
-    console.log(tweets.length);
 
     //sort by date
     tweets.sort(function compareDates(a,b){
@@ -72,12 +83,9 @@ function getTweets() {
         // finally append your tweet into the tweet list
         tweetList.appendChild(tweet);
     });
-
-    }).catch(function(err) {
-        console.warn("There was an error fetching the tweets.", err);
-    });
 }
 
+<<<<<<< HEAD
 function removeDuplicates() {
     var i = 0; //use to reiterate through loop
     var tweetID = []; //this array is for the tweets we've already seen
@@ -97,3 +105,60 @@ function removeDuplicates() {
     }
 }
 
+=======
+/**
+ * Removes all existing tweets from tweetList and then append all tweets back in
+ *
+ * @param {Array<Object>} tweets - A list of tweets
+ * @returns None, the tweets will be renewed
+ */
+/*
+function refreshTweets(tweets) {
+    // feel free to use a more complicated heuristics like in-place-patch, for simplicity, we will clear all tweets and append all tweets back
+    // {@link https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript}
+    /*while (tweetContainer.firstChild) {
+        tweetContainer.removeChild(tweetContainer.firstChild);
+    }*/
+    //clearContainer = document.getElementById('container');
+    //clearContainer = '';
+
+    // create an unordered list to hold the tweets
+    // {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement}
+    //const tweetList = document.createElement("ul");
+    // append the tweetList to the tweetContainer
+    // {@link https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild}
+    //tweetContainer.appendChild(tweetList);
+    //tweetContainer.appendChild(document.createElement("ul"));
+    // all tweet objects (no duplicates) stored in tweets variable
+    //removeDuplicates();
+    //console.log("noerrors");
+    // filter on search text
+    // {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter}
+    //const filteredResult = tweets.filter(...);
+    // sort by date
+    // {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort}
+    //const sortedResult = filteredResult.sort(...);
+
+    // execute the arrow function for each tweet
+    // {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach}
+    //sortedResult.forEach(tweetObject => {
+        // create a container for individual tweet
+    //const tweet = document.createElement("li");
+
+        // e.g. create a div holding tweet content
+    //const tweetContent = document.createElement("div");
+        // create a text node "safely" with HTML characters escaped
+        // {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode}
+    //const tweetText = document.createTextNode(tweetObject.text);
+        // append the text node to the div
+    //tweetContent.appendChild(tweetText);
+
+        // you may want to put more stuff here like time, username...
+    //tweet.appendChild(tweetContent);
+
+        // finally append your tweet into the tweet list
+    //tweetList.appendChild(tweet);
+    //});
+     
+//}*/
+>>>>>>> 443ac23718db9f7cf858ccab005dd9eb1f884acc
