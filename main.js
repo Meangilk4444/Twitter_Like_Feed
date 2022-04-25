@@ -9,10 +9,13 @@ let searchQuery = "";
 var tweetList;
 
 class Tweet {
-    constructor(text, id, created_at) {
+    constructor(text, id, created_at, name, username, profile_picture_url) {
         this.text = text;
         this.id = id;
         this.created_at = created_at;
+        this.name = name;
+        this.username = username;
+        this.profile_picture_url = profile_picture_url; 
     }
 }
 
@@ -62,8 +65,8 @@ function getTweets() {
             return response.json();
         }).then(function(data) {
             for (let i = 0; Object.keys(data.statuses).length; i++) {
-                if (data.statuses[i] != null && data.statuses[i].text != null && data.statuses[i].id != null && data.statuses[i].created_at) {
-                    let tweet = new Tweet(data.statuses[i].text, data.statuses[i].id, data.statuses[i].created_at);
+                if (data.statuses[i] != null && data.statuses[i].text != null && data.statuses[i].id != null && data.statuses[i].created_at && data.statuses[i].user.name != null && data.statuses[i].user.screen_name != null && data.statuses[i].user.profile_image_url != null) {
+                    let tweet = new Tweet(data.statuses[i].text, data.statuses[i].id, data.statuses[i].created_at, data.statuses[i].user.name, data.statuses[i].user.screen_name, data.statuses[i].user.profile_image_url);
 
                     if (!tweetIDList.includes(tweet.id)) {
                         unfilteredTweets.push(tweet);
@@ -105,33 +108,55 @@ function updateFeed(tweets) {
     });
 
     tweets.forEach(tweetObject => {
-        // create a container for individual tweet
-        const tweet = document.createElement("li");
+        let postContainer = document.createElement("div");
+        postContainer.classList.add('post');
+        postContainer.classList.add('d-flex');
 
-        // e.g. create a div holding tweet content
-        const tweetContent = document.createElement("div");
-        // create a text node "safely" with HTML characters escaped
-        // {@link https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode}
-        const tweetText = document.createTextNode(tweetObject.text);
-        // append the text node to the div
-        tweetContent.appendChild(tweetText);
+        let profilePicture = document.createElement("img");
+        profilePicture.classList.add("postProfilePicture");
+        profilePicture.src = tweetObject.profile_picture_url;
+        profilePicture.alt = "Profile Picture";
 
-        // you may want to put more stuff here like time, username...
-        tweet.appendChild(tweetContent);
+        let postContent = document.createElement("div");
+        postContent.classList.add('postContent');
+        postContent.classList.add('d-flex');
+        postContent.classList.add('flex-column');
 
-        // finally append your tweet into the tweet list
-        tweetList.appendChild(tweet);
+        let postProfileInformation = document.createElement("div");
+        postProfileInformation.classList.add("postProfileInformation");
+        postProfileInformation.classList.add("d-flex");
+
+        let name = document.createElement("p");
+        name.innerHTML = `<b>${tweetObject.name}</b>`;
+
+        let postUsername = document.createElement("p");
+        postUsername.classList.add("postUsername");
+        postUsername.innerHTML = `@${tweetObject.username} ${moment(tweetObject.created_at).utc().format('MM/DD/YY')}`;
+
+        let postText = document.createElement("p");
+        postText.innerHTML = `${tweetObject.text}`
+
+        postContainer.appendChild(profilePicture);
+
+        postProfileInformation.appendChild(name);
+        postProfileInformation.appendChild(postUsername);
+
+        postContent.appendChild(postProfileInformation);
+        postContent.appendChild(postText);
+
+        postContainer.appendChild(postContent);
+        tweetList.appendChild(postContainer);
     });
 }
 
 function initializeHTML(reset) {
-    var tweetContainer = document.getElementById('tweet-container'); 
+    var tweetContainer = document.getElementById('centerColumn'); 
     
     if (reset) {
         tweetContainer.innerText = '';
     }
 
-    tweetList = document.createElement("ul");
+    tweetList = document.createElement("div");
 
     if(tweetContainer != null){
         tweetContainer.appendChild(tweetList);
